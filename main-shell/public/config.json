@@ -1,0 +1,9 @@
+{
+  "apiUrl": "https://api.example.com",
+  "timeout": 30000,
+  "keycloak": {
+    "url": "http://172.29.97.248:9000",
+    "realm": "test-realm",
+    "clientId": "test-app"
+  }
+}

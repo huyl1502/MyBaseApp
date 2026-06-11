@@ -1,0 +1,18 @@
+{
+  "modules": [
+    {
+      "name": "patient",
+      "displayName": "Bệnh nhân",
+      "route": "/patient",
+      "entry": "http://localhost:3002/assets/remoteEntry.js",
+      "expose": "./App"
+    },
+    {
+      "name": "lab",
+      "displayName": "Xét nghiệm",
+      "route": "/lab",
+      "entry": "http://localhost:3003/assets/remoteEntry.js",
+      "expose": "./App"
+    }
+  ]
+}
