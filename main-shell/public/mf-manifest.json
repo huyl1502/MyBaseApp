@@ -4,14 +4,14 @@
       "name": "patient",
       "displayName": "Bệnh nhân",
       "route": "/patient",
-      "entry": "http://localhost:3002/assets/remoteEntry.js",
+      "entry": "http://localhost:3001/remoteEntry.js",
       "expose": "./App"
     },
     {
       "name": "lab",
       "displayName": "Xét nghiệm",
       "route": "/lab",
-      "entry": "http://localhost:3003/assets/remoteEntry.js",
+      "entry": "http://localhost:3004/remoteEntry.js",
       "expose": "./App"
     }
   ]

@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import federation from "@originjs/vite-plugin-federation";
+import { federation } from "@module-federation/vite";
 
 export default defineConfig({
   plugins: [
@@ -12,24 +12,18 @@ export default defineConfig({
         "./App": "./src/App.tsx",
       },
       shared: {
-        react: {
-          requiredVersion: false,
-        },
-        "react-dom": {
-          requiredVersion: false,
-        },
-        antd: {
-          requiredVersion: false,
-        },
+        react: {},
+        "react-dom": {},
+        antd: {},
       },
     }),
   ],
 
   server: {
-    port: 3002,
+    port: 3001,
   },
   preview: {
-    port: 3002,
+    port: 3001,
   },
 
   build: {

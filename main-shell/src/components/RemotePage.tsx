@@ -41,13 +41,18 @@ export default function RemotePage({ module }: Props) {
   const Component = useMemo(() => {
     if (!ready) return null;
 
+    // Dynamically import the remote module and adapt it for React.lazy
     return React.lazy(async () => {
       try {
-        return await loadRemoteModule(module.name, module.expose);
+        const remote = await loadRemoteModule(module.name, module.expose);
+        // Ensure the returned object has a default export
+        return { default: (remote as any).default ?? remote };
       } catch (ex) {
         setError(
           `Failed to load remote module ${module.name}/${module.expose}: ${ex}`,
         );
+        // Fallback component
+        return { default: () => null };
       }
     });
   }, [ready, module]);

@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "vite preview",
+    "start": "vite",
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@originjs/vite-plugin-federation": "^1.4.1",
+    "@module-federation/vite": "^1.16.6",
     "@types/node": "^24.12.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",

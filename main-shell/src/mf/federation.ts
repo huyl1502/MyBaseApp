@@ -1,33 +1,35 @@
-// mf/federation.ts
+import { init, loadRemote, registerRemotes } from '@module-federation/enhanced/runtime';
 
-const remotes = new Map<string, any>();
+let initialized = false;
 
 export async function loadRemoteEntry(remoteName: string, url: string) {
-  if (remotes.has(remoteName)) {
-    return remotes.get(remoteName);
+  if (!initialized) {
+    init({
+      name: 'shell',
+      remotes: []
+    });
+    initialized = true;
   }
 
-  const remote = await import(
-    /* @vite-ignore */
-    url
-  );
-
-  // Khởi tạo shared scope
-  await remote.init?.({});
-
-  remotes.set(remoteName, remote);
-
-  return remote;
+  registerRemotes([
+    {
+      name: remoteName,
+      entry: url,
+      type: 'module' // since it's built by vite
+    }
+  ]);
 }
 
-export async function loadRemoteModule(remoteName: string, expose: string) {
-  const remote = remotes.get(remoteName);
+export async function loadRemoteModule(remoteName: string, expose: string): Promise<any> {
+  const moduleName = expose.startsWith('./') ? expose.slice(2) : expose;
+  const remotePath = `${remoteName}/${moduleName}`;
+
+  const remote = await loadRemote(remotePath);
 
   if (!remote) {
-    throw new Error(`Remote '${remoteName}' chưa được load`);
+    throw new Error(`Remote '${remoteName}' module '${expose}' chưa được load`);
   }
 
-  const factory = await remote.get(expose);
-
-  return factory();
+  // `loadRemote` returns the module directly, not a factory function
+  return remote;
 }
