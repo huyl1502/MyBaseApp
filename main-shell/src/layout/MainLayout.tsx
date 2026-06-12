@@ -1,11 +1,9 @@
 import { Routes, Route, Link } from "react-router-dom";
 import {
-  Avatar,
   Button,
   Dropdown,
   Layout,
   Menu,
-  Space,
   type MenuProps,
 } from "antd";
 import { useEffect, useState } from "react";
@@ -15,60 +13,17 @@ import {
   AppstoreOutlined,
   ContainerOutlined,
   DesktopOutlined,
-  DownOutlined,
-  LockOutlined,
-  LogoutOutlined,
   MailOutlined,
   PieChartOutlined,
-  UserOutlined,
 } from "@ant-design/icons";
 import { getKeycloak } from "../keycloak/keycloak";
+import UserMenu from "../components/UserMenu";
 
 const { Content, Header, Sider } = Layout;
 type MenuItem = Required<MenuProps>["items"][number];
 
 export default function MainLayout() {
   const keycloak = getKeycloak();
-  const userName =
-    keycloak.tokenParsed?.name ||
-    keycloak.tokenParsed?.preferred_username ||
-    "User";
-  const userEmail = keycloak.tokenParsed?.email;
-
-  const userMenuItems: MenuProps["items"] = [
-    {
-      key: "profile",
-      label: (
-        <div>
-          <div style={{ fontWeight: 600 }}>{userName}</div>
-          {userEmail && (
-            <div style={{ fontSize: 12, color: "#999" }}>{userEmail}</div>
-          )}
-        </div>
-      ),
-      disabled: true,
-    },
-    {
-      type: "divider",
-    },
-    {
-      key: "change-password",
-      icon: <LockOutlined />,
-      label: "Đổi mật khẩu",
-      onClick: () => {
-        keycloak.accountManagement();
-      },
-    },
-    {
-      key: "logout",
-      icon: <LogoutOutlined />,
-      label: "Đăng xuất",
-      danger: true,
-      onClick: () => {
-        keycloak.logout();
-      },
-    },
-  ];
 
   const items: MenuItem[] = [
     { key: "1", icon: <PieChartOutlined />, label: "Option 1" },
@@ -149,25 +104,7 @@ export default function MainLayout() {
         </div>
 
         {/* RIGHT */}
-        <Dropdown
-          menu={{ items: userMenuItems }}
-          placement="bottomRight"
-          trigger={["click"]}
-        >
-          <Button
-            type="text"
-            style={{
-              color: "#fff",
-              height: "100%",
-            }}
-          >
-            <Space>
-              <Avatar size="small" icon={<UserOutlined />} />
-              <span>{userName}</span>
-              <DownOutlined />
-            </Space>
-          </Button>
-        </Dropdown>
+        <UserMenu keycloak={keycloak} />
       </Header>
 
       {/* CONTENT */}
