@@ -14,14 +14,16 @@ import {
 } from "@ant-design/icons";
 import { getKeycloak } from "../keycloak/keycloak";
 import UserMenu from "../components/UserMenu";
-import RouteManager from "../components/RouteManager";
+import RouteManager from "../components/Route/RouteManager";
 import { getMenus } from "../services/MenuService";
 import { toMenuItems } from "../components/MappingIcon";
+import { useNavigate } from "react-router-dom";
 
 const { Content, Header, Sider } = Layout;
 type MenuItem = Required<MenuProps>["items"][number];
 
 export default function MainLayout() {
+  const navigate = useNavigate();
   const keycloak = getKeycloak();
 
   const [collapsed, setCollapsed] = useState(true);
@@ -93,9 +95,11 @@ export default function MainLayout() {
           <Menu
             defaultSelectedKeys={["1"]}
             mode="inline"
+            theme="dark"
             inlineCollapsed={collapsed}
             tooltip={{ placement: "left" }}
             items={menuItems}
+            onClick={({ key }) => navigate(key)}
           />
         </Sider>
         <Content>

@@ -1,6 +1,6 @@
 // router/RouteConfig.ts
 
-import TestPage from "../layout/screens/TestPage";
+import TestPage from "../../layout/screens/TestPage";
 
 export interface AppRoute {
   path: string;
@@ -10,7 +10,7 @@ export interface AppRoute {
 
 export const routes: AppRoute[] = [
   {
-    path: "/test",
+    path: "/Menu",
     auth: false,
     element: TestPage,
   },

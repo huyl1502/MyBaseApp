@@ -2,7 +2,7 @@
 
 import { Routes, Route } from "react-router-dom";
 
-import AuthWrapper from "./AuthWrapper";
+import AuthWrapper from "../AuthWrapper";
 import { routes } from "./RouteConfig";
 
 export default function RouteManager() {

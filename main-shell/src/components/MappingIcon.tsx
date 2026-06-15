@@ -9,6 +9,8 @@ import {
   ContainerOutlined,
   MailOutlined,
   AppstoreOutlined,
+  SettingOutlined,
+  MenuOutlined,
 } from "@ant-design/icons";
 
 import type { MenuDto } from "../models/DTO/MenuDTO";
@@ -21,15 +23,17 @@ const iconMap: Record<string, React.ReactNode> = {
   ContainerOutlined: <ContainerOutlined />,
   MailOutlined: <MailOutlined />,
   AppstoreOutlined: <AppstoreOutlined />,
+  SettingOutlined: <SettingOutlined />,
+  MenuOutlined: <MenuOutlined />
 };
 
 export function toMenuItems(menus: MenuDto[]): MenuItem[] {
   return menus.map((m) => ({
-    key: m.path ?? m.id,
-    label: m.title,
-    icon: m.icon ? iconMap[m.icon] : undefined,
-    children: m.children
-      ? toMenuItems(m.children)
+    key: m.Url ?? m.MenuId,
+    label: m.MenuName,
+    icon: m.Icon ? iconMap[m.Icon] : undefined,
+    children: m.Children
+      ? toMenuItems(m.Children)
       : undefined,
   }));
 }
