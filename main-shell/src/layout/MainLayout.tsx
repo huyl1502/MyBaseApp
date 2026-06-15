@@ -1,23 +1,22 @@
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   Button,
   Dropdown,
   Layout,
   Menu,
+  message,
   type MenuProps,
 } from "antd";
 import { useEffect, useState } from "react";
 import { loadManifest } from "../mf/manifest";
-import RemotePage from "../components/RemotePage";
 import {
   AppstoreOutlined,
-  ContainerOutlined,
-  DesktopOutlined,
-  MailOutlined,
-  PieChartOutlined,
 } from "@ant-design/icons";
 import { getKeycloak } from "../keycloak/keycloak";
 import UserMenu from "../components/UserMenu";
+import RouteManager from "../components/RouteManager";
+import { getMenus } from "../services/MenuService";
+import { toMenuItems } from "../components/MappingIcon";
 
 const { Content, Header, Sider } = Layout;
 type MenuItem = Required<MenuProps>["items"][number];
@@ -25,45 +24,22 @@ type MenuItem = Required<MenuProps>["items"][number];
 export default function MainLayout() {
   const keycloak = getKeycloak();
 
-  const items: MenuItem[] = [
-    { key: "1", icon: <PieChartOutlined />, label: "Option 1" },
-    { key: "2", icon: <DesktopOutlined />, label: "Option 2" },
-    { key: "3", icon: <ContainerOutlined />, label: "Option 3" },
-    {
-      key: "sub1",
-      label: "Navigation One",
-      icon: <MailOutlined />,
-      children: [
-        { key: "5", label: "Option 5" },
-        { key: "6", label: "Option 6" },
-        { key: "7", label: "Option 7" },
-        { key: "8", label: "Option 8" },
-      ],
-    },
-    {
-      key: "sub2",
-      label: "Navigation Two",
-      icon: <AppstoreOutlined />,
-      children: [
-        { key: "9", label: "Option 9" },
-        { key: "10", label: "Option 10" },
-        {
-          key: "sub3",
-          label: "Submenu",
-          children: [
-            { key: "11", label: "Option 11" },
-            { key: "12", label: "Option 12" },
-          ],
-        },
-      ],
-    },
-  ];
-
   const [collapsed, setCollapsed] = useState(true);
-
   const [manifest, setManifest] = useState<any>(null);
+  const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
+
+  const loadMenu = async () => {
+    try {
+      const res = await getMenus();
+
+      setMenuItems(toMenuItems(res.data));
+    } catch (err) {
+      message.error("Load menu failed", err);
+    }
+  };
 
   useEffect(() => {
+    loadMenu();
     loadManifest().then(setManifest);
   }, []);
 
@@ -117,24 +93,13 @@ export default function MainLayout() {
           <Menu
             defaultSelectedKeys={["1"]}
             mode="inline"
-            theme="dark"
             inlineCollapsed={collapsed}
             tooltip={{ placement: "left" }}
-            items={items}
+            items={menuItems}
           />
         </Sider>
         <Content>
-          <Routes>
-            {manifest.modules.map((m: any) => (
-              <Route
-                key={m.name}
-                path={`${m.route}/*`}
-                element={<RemotePage module={m} />}
-              />
-            ))}
-
-            <Route path="*" element={<div>Home</div>} />
-          </Routes>
+          <RouteManager />
         </Content>
       </Layout>
     </Layout>

@@ -1,4 +1,3 @@
-import React from "react";
 import ReactDOM from "react-dom/client";
 import { ConfigProvider, theme } from "antd";
 
@@ -11,7 +10,6 @@ export default async function bootstrap() {
   await initKeycloak();
 
   ReactDOM.createRoot(document.getElementById("root")!).render(
-    <React.StrictMode>
       <ConfigProvider
         theme={{
           algorithm: theme.defaultAlgorithm,
@@ -19,6 +17,5 @@ export default async function bootstrap() {
       >
         <App />
       </ConfigProvider>
-    </React.StrictMode>,
   );
 }

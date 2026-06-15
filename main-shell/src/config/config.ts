@@ -1,6 +1,6 @@
 export interface AppConfig {
   apiUrl: string;
-  timeout: Int16Array;
+  timeout: number;
   keycloak: {
     url: string;
     realm: string;

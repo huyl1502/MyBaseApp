@@ -9,9 +9,8 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(async (config) => {
   const keycloak = getKeycloak();
 
-  if (keycloak?.authenticated) {
+  if (!config.skipAuth && keycloak?.authenticated) {
     await keycloak.updateToken(30);
-
     config.headers.Authorization = `Bearer ${keycloak.token}`;
   }
 
