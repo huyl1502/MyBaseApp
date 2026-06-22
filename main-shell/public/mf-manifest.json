@@ -13,6 +13,13 @@
       "route": "/lab",
       "entry": "http://localhost:3004/remoteEntry.js",
       "expose": "./App"
+    },
+    {
+      "name": "config",
+      "displayName": "Cấu hình",
+      "route": "/config",
+      "entry": "http://localhost:3001/remoteEntry.js",
+      "expose": "./App"
     }
   ]
 }
