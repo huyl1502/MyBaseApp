@@ -8,9 +8,16 @@ export default defineConfig({
     federation({
       name: "patient",
       filename: "remoteEntry.js",
+      remotes: {
+        shell: {
+          type: "module",
+          name: "shell",
+          entry: "http://localhost:3000/remoteEntry.js",
+        },
+      },
       exposes: {
         "./App": "./src/App.tsx",
-        "./Menu": "./src/screens/Menu.tsx",
+        "./Menu": "./src/screens/menu/Menu.tsx",
       },
       shared: {
         react: {},

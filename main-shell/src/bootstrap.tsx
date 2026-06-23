@@ -14,6 +14,18 @@ export default async function bootstrap() {
     <ConfigProvider
       theme={{
         algorithm: theme.defaultAlgorithm,
+        token: {
+          colorPrimary: "#4f46e5", // Màu xanh indigo trơn, không gradient
+          borderRadius: 4,         // Bo góc nhỏ hơn
+          controlHeight: 32,       // Chiều cao mặc định của button, input
+          padding: 12,             // Khoảng cách bên trong
+          margin: 12,              // Khoảng cách bên ngoài
+        },
+        components: {
+          Table: {
+            cellPaddingBlock: 8,   // Padding ô trong bảng
+          },
+        },
       }}
     >
       <ValidatorProvider>

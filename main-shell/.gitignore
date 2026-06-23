@@ -12,6 +12,10 @@ dist
 dist-ssr
 *.local
 
+# Module Federation - auto-generated
+@mf-types
+.mf
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

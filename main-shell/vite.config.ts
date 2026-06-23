@@ -7,6 +7,12 @@ export default defineConfig({
     react(),
     federation({
       name: "shell",
+      filename: "remoteEntry.js",
+
+      exposes: {
+        "./keycloak":    "./src/keycloak/keycloak.ts",
+        "./config":      "./src/config/config.ts",
+      },
 
       shared: {
         react: {},
@@ -19,6 +25,7 @@ export default defineConfig({
 
   server: {
     port: 3000,
+    cors: true,
   },
 
   build: {
