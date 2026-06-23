@@ -6,7 +6,7 @@ import {
   InputNumber,
   Switch,
 } from "antd";
-import type { MenuModel } from "../../types/menu";
+import type { MenuModel } from "../../models/menu";
 
 export type ModalMode = "add" | "edit" | null;
 
@@ -30,7 +30,7 @@ export default function MenuFormModal({
   useEffect(() => {
     if (mode === "add") {
       form.resetFields();
-      form.setFieldsValue({ isActive: true, orderIndex: 0 });
+      form.setFieldsValue({ Enabled: true, OrderIndex: 0 });
     } else if (mode === "edit" && initialValues) {
       form.setFieldsValue(initialValues);
     }
@@ -56,11 +56,11 @@ export default function MenuFormModal({
       open={!!mode}
       onCancel={handleCancel}
       onOk={handleOk}
-      okText={mode === "add" ? "Thêm Menu" : "Lưu thay đổi"}
+      okText={submitting ? "Đang lưu..." : (mode === "add" ? "Thêm Menu" : "Lưu thay đổi")}
       cancelText="Huỷ"
       confirmLoading={submitting}
-      okButtonProps={{ id: "btn-submit-modal", className: "btn-gradient" }}
-      cancelButtonProps={{ id: "btn-cancel-modal" }}
+      okButtonProps={{ id: "btn-submit-modal" }}
+      cancelButtonProps={{ id: "btn-cancel-modal", disabled: submitting }}
       width={560}
       destroyOnClose
     >
@@ -75,7 +75,7 @@ export default function MenuFormModal({
         >
           <Form.Item
             label="Menu ID"
-            name="menuId"
+            name="MenuId"
             rules={[{ required: true, message: "Vui lòng nhập Menu ID" }]}
           >
             <Input
@@ -87,25 +87,25 @@ export default function MenuFormModal({
 
           <Form.Item
             label="Tên Menu"
-            name="menuName"
+            name="MenuName"
             rules={[{ required: true, message: "Vui lòng nhập tên menu" }]}
           >
             <Input id="field-menuName" placeholder="Nhập tên menu" />
           </Form.Item>
 
-          <Form.Item label="Icon" name="icon">
+          <Form.Item label="Icon" name="Icon">
             <Input id="field-icon" placeholder="VD: home, settings..." />
           </Form.Item>
 
-          <Form.Item label="URL" name="url">
+          <Form.Item label="URL" name="Url">
             <Input id="field-url" placeholder="VD: /dashboard" />
           </Form.Item>
 
-          <Form.Item label="Parent ID" name="parentId">
+          <Form.Item label="Parent ID" name="ParentId">
             <Input id="field-parentId" placeholder="ID menu cha (nếu có)" />
           </Form.Item>
 
-          <Form.Item label="Thứ tự" name="orderIndex">
+          <Form.Item label="Thứ tự" name="OrderIndex">
             <InputNumber
               id="field-orderIndex"
               min={0}
@@ -115,7 +115,7 @@ export default function MenuFormModal({
           </Form.Item>
         </div>
 
-        <Form.Item label="Hoạt động" name="isActive" valuePropName="checked">
+        <Form.Item label="Hoạt động" name="Enabled" valuePropName="checked">
           <Switch
             id="toggle-isActive"
             checkedChildren="Bật"

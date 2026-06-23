@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Button, Flex, Typography, message } from "antd";
-import { PlusOutlined, MenuOutlined } from "@ant-design/icons";
+import { PlusOutlined } from "@ant-design/icons";
 import { menuApi } from "../../api/menuApi";
-import type { MenuModel } from "../../types/menu";
+import type { MenuModel } from "../../models/menu";
 import MenuList from "./MenuList";
 import MenuFormModal, { type ModalMode } from "./MenuFormModal";
 
@@ -56,7 +56,7 @@ export default function Menu() {
         await menuApi.insert(values);
         message.success("Thêm menu thành công");
       } else {
-        await menuApi.update({ ...values, menuId: editingRecord!.menuId });
+        await menuApi.update({ ...values, MenuId: editingRecord!.MenuId });
         message.success("Cập nhật menu thành công");
       }
       handleCloseModal();
@@ -70,7 +70,7 @@ export default function Menu() {
 
   const handleDelete = async (record: MenuModel) => {
     try {
-      await menuApi.delete(record.menuId);
+      await menuApi.delete(record.MenuId);
       message.success("Xoá menu thành công");
       fetchAll();
     } catch {
@@ -90,9 +90,6 @@ export default function Menu() {
         gap={12}
       >
         <Flex align="center" gap={12}>
-          <div>
-            <MenuOutlined style={{ fontSize: 20, color: "#4f46e5" }} />
-          </div>
           <div>
             <Title level={4} style={{ margin: 0, color: "#1e1b4b" }}>
               Quản lý Menu

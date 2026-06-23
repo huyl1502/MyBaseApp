@@ -1,5 +1,5 @@
 import axiosClient from "./axiosClient";
-import type { MenuModel } from "../types/menu";
+import type { MenuModel } from "../models/menu";
 
 const BASE = "/menu";
 

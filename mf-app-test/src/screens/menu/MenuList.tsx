@@ -14,7 +14,8 @@ import {
   DeleteOutlined,
   ReloadOutlined,
 } from "@ant-design/icons";
-import type { MenuModel } from "../../types/menu";
+import AsyncButton from "../../components/AsyncButton";
+import type { MenuModel } from "../../models/menu";
 
 const { Text } = Typography;
 
@@ -23,7 +24,7 @@ interface MenuListProps {
   loading: boolean;
   search: string;
   onSearchChange: (value: string) => void;
-  onRefresh: () => void;
+  onRefresh: () => Promise<void> | void;
   onEdit: (record: MenuModel) => void;
   onDelete: (record: MenuModel) => void;
 }
@@ -40,8 +41,8 @@ export default function MenuList({
   const columns: TableColumnsType<MenuModel> = [
     {
       title: "Menu ID",
-      dataIndex: "menuId",
-      key: "menuId",
+      dataIndex: "MenuId",
+      key: "MenuId",
       width: 160,
       render: (val: string) => (
         <Text code style={{ fontSize: 12 }}>
@@ -51,15 +52,15 @@ export default function MenuList({
     },
     {
       title: "Tên Menu",
-      dataIndex: "menuName",
-      key: "menuName",
-      sorter: (a, b) => a.menuName.localeCompare(b.menuName),
+      dataIndex: "MenuName",
+      key: "MenuName",
+      sorter: (a, b) => a.MenuName.localeCompare(b.MenuName),
       render: (val: string) => <Text strong>{val}</Text>,
     },
     {
       title: "Icon",
-      dataIndex: "icon",
-      key: "icon",
+      dataIndex: "Icon",
+      key: "Icon",
       width: 120,
       render: (val: string) =>
         val ? (
@@ -72,8 +73,8 @@ export default function MenuList({
     },
     {
       title: "URL",
-      dataIndex: "url",
-      key: "url",
+      dataIndex: "Url",
+      key: "Url",
       render: (val: string) =>
         val ? (
           <Text code style={{ fontSize: 12 }}>
@@ -85,11 +86,11 @@ export default function MenuList({
     },
     {
       title: "Thứ tự",
-      dataIndex: "orderIndex",
-      key: "orderIndex",
+      dataIndex: "OrderIndex",
+      key: "OrderIndex",
       width: 90,
       align: "center",
-      sorter: (a, b) => (a.orderIndex ?? 0) - (b.orderIndex ?? 0),
+      sorter: (a, b) => (a.OrderIndex ?? 0) - (b.OrderIndex ?? 0),
       render: (val: number) => (
         <Tag
           color="blue"
@@ -101,15 +102,15 @@ export default function MenuList({
     },
     {
       title: "Trạng thái",
-      dataIndex: "isActive",
-      key: "isActive",
+      dataIndex: "Enabled",
+      key: "Enabled",
       width: 130,
       align: "center",
       filters: [
         { text: "Hoạt động", value: true },
         { text: "Tắt", value: false },
       ],
-      onFilter: (value, record) => record.isActive === value,
+      onFilter: (value, record) => record.Enabled === value,
       render: (val: boolean) =>
         val ? (
           <Tag color="success">
@@ -130,7 +131,7 @@ export default function MenuList({
       render: (_, record) => (
         <Space size={6}>
           <Button
-            id={`btn-edit-${record.menuId}`}
+            id={`btn-edit-${record.MenuId}`}
             type="primary"
             ghost
             size="small"
@@ -143,7 +144,7 @@ export default function MenuList({
             title="Xoá menu"
             description={
               <>
-                Bạn có chắc muốn xoá <strong>"{record.menuName}"</strong>?
+                Bạn có chắc muốn xoá <strong>"{record.MenuName}"</strong>?
               </>
             }
             onConfirm={() => onDelete(record)}
@@ -153,7 +154,7 @@ export default function MenuList({
             placement="topRight"
           >
             <Button
-              id={`btn-delete-${record.menuId}`}
+              id={`btn-delete-${record.MenuId}`}
               danger
               size="small"
               icon={<DeleteOutlined />}
@@ -168,9 +169,9 @@ export default function MenuList({
 
   const filteredData = data.filter(
     (m) =>
-      m.menuName?.includes(search) ||
-      m.menuId?.includes(search) ||
-      (m.url ?? "").includes(search)
+      m.MenuName?.toLowerCase().includes(search.toLowerCase()) ||
+      m.MenuId?.toLowerCase().includes(search.toLowerCase()) ||
+      (m.Url ?? "").toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -186,19 +187,22 @@ export default function MenuList({
           onSearch={onSearchChange}
           style={{ maxWidth: 360 }}
         />
-        <Button
+        <AsyncButton
           id="btn-refresh"
-          icon={<ReloadOutlined spin={loading} />}
-          onClick={onRefresh}
-          loading={loading}
+          icon={<ReloadOutlined />}
+          onClick={async () => {
+            // Bao bọc thành Promise để AsyncButton tự bắt loading
+            await onRefresh();
+          }}
+          loadingText="Đang tải..."
         >
           Làm mới
-        </Button>
+        </AsyncButton>
       </Flex>
 
       {/* Table */}
       <Table<MenuModel>
-        rowKey="menuId"
+        rowKey="MenuId"
         columns={columns}
         dataSource={filteredData}
         loading={loading}
