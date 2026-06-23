@@ -62,7 +62,7 @@ export default function MenuFormModal({
       okButtonProps={{ id: "btn-submit-modal" }}
       cancelButtonProps={{ id: "btn-cancel-modal", disabled: submitting }}
       width={560}
-      destroyOnClose
+      destroyOnHidden
     >
       <Form
         form={form}

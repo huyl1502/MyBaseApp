@@ -77,8 +77,6 @@ export default function MainLayout() {
               style={{ color: "#fff" }}
             />
           </Dropdown>
-
-          <div style={{ marginLeft: 12, color: "#fff" }}>Header</div>
         </div>
 
         {/* RIGHT */}
