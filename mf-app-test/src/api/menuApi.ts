@@ -1,11 +1,17 @@
 import axiosClient from "./axiosClient";
 import type { MenuModel } from "../models/menu";
+import type { PagedRequest, PagedResponse } from "../models/pagination";
 
 const BASE = "/menu";
 
 export const menuApi = {
   getAll: () =>
     axiosClient.get<MenuModel[]>(`${BASE}/GetAllMenus`).then((r) => r.data),
+
+  getMenusPaged: (request: PagedRequest) =>
+    axiosClient
+      .get<PagedResponse<MenuModel>>(`${BASE}/GetMenusPaged`, { params: request })
+      .then((r) => r.data),
 
   getById: (menuId: string) =>
     axiosClient
@@ -23,3 +29,4 @@ export const menuApi = {
       .delete<boolean>(`${BASE}/DeleteMenu/${menuId}`)
       .then((r) => r.data),
 };
+
