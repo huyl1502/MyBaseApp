@@ -18,6 +18,9 @@ export default defineConfig({
       exposes: {
         "./App": "./src/App.tsx",
         "./Menu": "./src/screens/menu/Menu.tsx",
+        "./Feature": "./src/screens/feature/Feature.tsx",
+        "./Function": "./src/screens/function/Function.tsx",
+        "./Role": "./src/screens/role/Role.tsx",
       },
       shared: {
         react: {},
