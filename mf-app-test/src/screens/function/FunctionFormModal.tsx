@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import { Modal, Form, Input, Switch, TreeSelect, message } from "antd";
+import { useEffect } from "react";
+import { Modal, Form, Input, Switch } from "antd";
 import type { FunctionModel } from "../../models/function";
-import { functionApi } from "../../api/functionApi";
 
 export type ModalMode = "add" | "edit" | null;
 
@@ -13,13 +12,6 @@ interface FunctionFormModalProps {
   onCancel: () => void;
 }
 
-interface TreeSelectNode {
-  value: string;
-  title: string;
-  children?: TreeSelectNode[];
-  disabled?: boolean;
-}
-
 export default function FunctionFormModal({
   mode,
   initialValues,
@@ -28,40 +20,8 @@ export default function FunctionFormModal({
   onCancel,
 }: FunctionFormModalProps) {
   const [form] = Form.useForm<FunctionModel>();
-  const [treeData, setTreeData] = useState<TreeSelectNode[]>([]);
-
-  const loadTree = async () => {
-    try {
-      const res = await functionApi.getFunctionTree();
-      const mapped = mapToTreeSelect(res, initialValues?.FunctionId);
-      setTreeData(mapped);
-    } catch {
-      message.error("Không thể tải danh sách cây chức năng");
-    }
-  };
-
-  const mapToTreeSelect = (
-    nodes: FunctionModel[],
-    currentId?: string,
-    disabledState = false
-  ): TreeSelectNode[] => {
-    return nodes.map((node) => {
-      const isDisabled = disabledState || node.FunctionId === currentId;
-      return {
-        value: node.FunctionId,
-        title: node.FunctionName,
-        disabled: isDisabled,
-        children: node.Children && node.Children.length > 0
-          ? mapToTreeSelect(node.Children, currentId, isDisabled)
-          : undefined,
-      };
-    });
-  };
 
   useEffect(() => {
-    if (mode) {
-      loadTree();
-    }
     if (mode === "add") {
       form.resetFields();
       form.setFieldsValue({ Enabled: true });
@@ -124,17 +84,7 @@ export default function FunctionFormModal({
           <Input id="field-functionName" placeholder="Nhập tên Function" />
         </Form.Item>
 
-        <Form.Item label="Function cha" name="ParentFunctionId">
-          <TreeSelect
-            id="field-parentFunctionId"
-            style={{ width: "100%" }}
-            dropdownStyle={{ maxHeight: 400, overflow: "auto" }}
-            placeholder="Chọn Function cha (nếu có)"
-            allowClear
-            treeDefaultExpandAll
-            treeData={treeData}
-          />
-        </Form.Item>
+
 
         <Form.Item label="Hoạt động" name="Enabled" valuePropName="checked">
           <Switch

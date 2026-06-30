@@ -4,6 +4,7 @@ import MenuPage from "../../layout/screens/MenuPage";
 import FeaturePage from "../../layout/screens/FeaturePage";
 import FunctionPage from "../../layout/screens/FunctionPage";
 import RolePage from "../../layout/screens/RolePage";
+import RightPage from "../../layout/screens/RightPage";
 
 export interface AppRoute {
   path: string;
@@ -31,5 +32,10 @@ export const routes: AppRoute[] = [
     path: "/Role",
     auth: false,
     element: RolePage,
+  },
+  {
+    path: "/Right",
+    auth: false,
+    element: RightPage,
   },
 ];

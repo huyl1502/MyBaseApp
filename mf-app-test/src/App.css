@@ -182,3 +182,41 @@
     border-right-color: var(--border);
   }
 }
+
+/* ===== Permission Matrix (Excel-like Grid) ===== */
+.excel-matrix-table .ant-table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.excel-matrix-table .ant-table-thead > tr > th {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid #cbd5e1 !important;
+  border-right: 1px solid #cbd5e1 !important;
+  padding: 12px 8px !important;
+}
+
+.excel-matrix-table .ant-table-tbody > tr > td {
+  border-right: 1px solid #e2e8f0 !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+  padding: 10px 8px !important;
+  transition: all 0.2s;
+}
+
+.excel-matrix-table .ant-table-tbody > tr:hover > td {
+  background: #f8fafc !important;
+}
+
+.excel-matrix-table .ant-checkbox-wrapper {
+  transform: scale(1.1);
+}
+
+.excel-matrix-table .ant-table-cell-fix-left,
+.excel-matrix-table .ant-table-cell-fix-left-last {
+  background: #f8fafc !important;
+  font-weight: 500;
+  border-right: 2px solid #cbd5e1 !important;
+}
+

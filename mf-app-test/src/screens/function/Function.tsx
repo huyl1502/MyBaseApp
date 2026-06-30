@@ -17,10 +17,10 @@ export default function Function() {
   const [editingRecord, setEditingRecord] = useState<FunctionModel | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
-  const fetchTree = async () => {
+  const fetchAll = async () => {
     setLoading(true);
     try {
-      const res = await functionApi.getFunctionTree();
+      const res = await functionApi.getAll();
       setData(res);
     } catch {
       message.error("Không thể tải danh sách function");
@@ -30,7 +30,7 @@ export default function Function() {
   };
 
   useEffect(() => {
-    fetchTree();
+    fetchAll();
   }, []);
 
   const handleOpenAdd = () => {
@@ -59,7 +59,7 @@ export default function Function() {
         message.success("Cập nhật function thành công");
       }
       handleCloseModal();
-      fetchTree();
+      fetchAll();
     } catch {
       message.error("Có lỗi xảy ra, vui lòng thử lại");
     } finally {
@@ -71,7 +71,7 @@ export default function Function() {
     try {
       await functionApi.delete(record.FunctionId);
       message.success("Xoá function thành công");
-      fetchTree();
+      fetchAll();
     } catch {
       message.error("Xoá function thất bại");
     }
@@ -115,7 +115,7 @@ export default function Function() {
         loading={loading}
         search={search}
         onSearchChange={setSearch}
-        onRefresh={fetchTree}
+        onRefresh={fetchAll}
         onEdit={handleOpenEdit}
         onDelete={handleDelete}
       />

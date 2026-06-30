@@ -124,26 +124,11 @@ export default function FunctionList({
     },
   ];
 
-  // Hàm filter đệ quy cho cây dữ liệu
-  const filterTree = (nodes: FunctionModel[], q: string): FunctionModel[] => {
-    return nodes
-      .map((node) => ({ ...node }))
-      .filter((node) => {
-        const matchesCurrent =
-          node.FunctionName?.toLowerCase().includes(q.toLowerCase()) ||
-          node.FunctionId?.toLowerCase().includes(q.toLowerCase());
-
-        if (node.Children && node.Children.length > 0) {
-          const filteredChildren = filterTree(node.Children, q);
-          node.Children = filteredChildren.length > 0 ? filteredChildren : undefined;
-          return matchesCurrent || filteredChildren.length > 0;
-        }
-
-        return matchesCurrent;
-      });
-  };
-
-  const filteredData = search ? filterTree(data, search) : data;
+  const filteredData = data.filter(
+    (item) =>
+      item.FunctionName?.toLowerCase().includes(search.toLowerCase()) ||
+      item.FunctionId?.toLowerCase().includes(search.toLowerCase())
+  );
 
   return (
     <>
@@ -176,13 +161,12 @@ export default function FunctionList({
         loading={loading}
         size="middle"
         scroll={{ x: 800 }}
-        expandable={{ childrenColumnName: "Children" }}
         pagination={{
           defaultPageSize: 10,
           pageSizeOptions: [5, 10, 20, 50],
           showSizeChanger: true,
           showTotal: (total, range) =>
-            `${range[0]}-${range[1]} / ${total} kết quả`,
+              `${range[0]}-${range[1]} / ${total} kết quả`,
         }}
       />
     </>
