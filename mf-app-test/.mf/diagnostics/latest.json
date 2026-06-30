@@ -1,10 +1,10 @@
 {
   "latestErrorEvent": {
     "code": "TYPE-001",
-    "message": "Failed to generate type declaration. Execute the below cmd to reproduce and fix the error. #TYPE-001\nargs: {\"cmd\":\"npx tsc --project C:\\\\Users\\\\Admin\\\\source\\\\repos\\\\app\\\\mf-app-test\\\\node_modules\\\\.federation\\\\tsconfig.5a566e8ebb07d2e1b77d4fe35d8943b1.json\"}\nView the docs to see how to solve: https://module-federation.io/guide/troubleshooting/type#type-001",
+    "message": "Failed to generate type declaration. Execute the below cmd to reproduce and fix the error. #TYPE-001\nargs: {\"cmd\":\"npx tsc --project C:\\\\Users\\\\Admin\\\\source\\\\repos\\\\app\\\\mf-app-test\\\\node_modules\\\\.federation\\\\tsconfig.bd619695ec6910bc42320942827ee339.json\"}\nView the docs to see how to solve: https://module-federation.io/guide/troubleshooting/type#type-001",
     "args": {
-      "cmd": "npx tsc --project C:\\Users\\Admin\\source\\repos\\app\\mf-app-test\\node_modules\\.federation\\tsconfig.5a566e8ebb07d2e1b77d4fe35d8943b1.json"
+      "cmd": "npx tsc --project C:\\Users\\Admin\\source\\repos\\app\\mf-app-test\\node_modules\\.federation\\tsconfig.bd619695ec6910bc42320942827ee339.json"
     },
-    "timestamp": 1782732845747
+    "timestamp": 1782792304462
   }
 }

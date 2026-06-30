@@ -1,7 +1,4 @@
-import { Link } from "react-router-dom";
 import {
-  Button,
-  Dropdown,
   Layout,
   Menu,
   message,
@@ -9,9 +6,6 @@ import {
 } from "antd";
 import { useEffect, useState } from "react";
 import { loadManifest } from "../mf/manifest";
-import {
-  AppstoreOutlined,
-} from "@ant-design/icons";
 import { getKeycloak } from "../keycloak/keycloak";
 import UserMenu from "../components/UserMenu";
 import RouteManager from "../components/Route/RouteManager";
@@ -54,13 +48,13 @@ export default function MainLayout() {
         style={{
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
+          justifyContent: "flex-end",
           padding: "0 16px",
           height: 50,
         }}
       >
         {/* LEFT */}
-        <div style={{ display: "flex", alignItems: "center" }}>
+        {/* <div style={{ display: "flex", alignItems: "center" }}>
           <Dropdown
             menu={{
               items: manifest.modules.map((m: any) => ({
@@ -77,7 +71,7 @@ export default function MainLayout() {
               style={{ color: "#fff" }}
             />
           </Dropdown>
-        </div>
+        </div> */}
 
         {/* RIGHT */}
         <UserMenu keycloak={keycloak} />
