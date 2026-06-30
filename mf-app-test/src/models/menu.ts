@@ -3,7 +3,7 @@ export interface MenuModel {
   MenuName: string;
   Icon?: string;
   Url?: string;
-  ParentId?: string;
+  ParentMenuId?: string;
   OrderIndex?: number;
   Enabled?: boolean;
 }

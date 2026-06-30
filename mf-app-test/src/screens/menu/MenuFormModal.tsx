@@ -101,8 +101,8 @@ export default function MenuFormModal({
             <Input id="field-url" placeholder="VD: /dashboard" />
           </Form.Item>
 
-          <Form.Item label="Parent ID" name="ParentId">
-            <Input id="field-parentId" placeholder="ID menu cha (nếu có)" />
+          <Form.Item label="Parent ID" name="ParentMenuId">
+            <Input id="field-parentMenuId" placeholder="ID menu cha (nếu có)" />
           </Form.Item>
 
           <Form.Item label="Thứ tự" name="OrderIndex">

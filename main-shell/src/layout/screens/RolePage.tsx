@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { loadManifest } from "../../mf/manifest";
 import RemotePage from "../../components/RemotePage";
 import type { RemoteModule } from "../../types/manifest";
