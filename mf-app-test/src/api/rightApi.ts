@@ -12,4 +12,7 @@ export const rightApi = {
 
   delete: (rightId: string) =>
     axiosClient.delete<boolean>(`${BASE}/DeleteRight/${rightId}`).then((r) => r.data),
+
+  setupForm: () =>
+    axiosClient.post<any>(`${BASE}/SetupForm`).then((r) => r.data),
 };

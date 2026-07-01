@@ -14,9 +14,6 @@ import {
 } from "antd";
 import type { TableColumnsType } from "antd";
 import { ReloadOutlined, LockOutlined } from "@ant-design/icons";
-import { roleApi } from "../../api/roleApi";
-import { featureApi } from "../../api/featureApi";
-import { functionApi } from "../../api/functionApi";
 import { rightApi } from "../../api/rightApi";
 import type { RoleModel } from "../../models/role";
 import type { FeatureModel } from "../../models/feature";
@@ -40,12 +37,14 @@ export default function Right() {
   const fetchData = async () => {
     setLoading(true);
     try {
-      const [rolesRes, featuresRes, functionsRes, rightsRes] = await Promise.all([
-        roleApi.getAll(),
-        featureApi.getAll(),
-        functionApi.getAll(),
+      const [setupRes, rightsRes] = await Promise.all([
+        rightApi.setupForm(),
         rightApi.getAll(),
       ]);
+
+      const rolesRes = setupRes.listRoles || [];
+      const featuresRes = setupRes.listFeatures || [];
+      const functionsRes = setupRes.listFunctions || [];
 
       // Only display active roles/features/functions if they have Enabled property
       setRoles(rolesRes.filter((r) => r.Enabled !== false));
