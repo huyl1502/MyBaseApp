@@ -8,6 +8,7 @@ export default defineConfig({
     federation({
       name: "shell",
       filename: "remoteEntry.js",
+      dts: false,
 
       exposes: {
         "./keycloak":    "./src/keycloak/keycloak.ts",

@@ -8,6 +8,7 @@ export default defineConfig({
     federation({
       name: "patient",
       filename: "remoteEntry.js",
+      dts: false,
       remotes: {
         shell: {
           type: "module",
