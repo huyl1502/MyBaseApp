@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/Menu",
+    "auth": false,
+    "moduleName": "config",
+    "expose": "./Menu"
+  },
+  {
+    "path": "/Feature",
+    "auth": false,
+    "moduleName": "config",
+    "expose": "./Feature"
+  },
+  {
+    "path": "/Function",
+    "auth": false,
+    "moduleName": "config",
+    "expose": "./Function"
+  },
+  {
+    "path": "/Role",
+    "auth": false,
+    "moduleName": "config",
+    "expose": "./Role"
+  },
+  {
+    "path": "/Right",
+    "auth": false,
+    "moduleName": "config",
+    "expose": "./Right"
+  }
+]

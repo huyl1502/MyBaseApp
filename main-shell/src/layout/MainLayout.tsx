@@ -5,7 +5,6 @@ import {
   type MenuProps,
 } from "antd";
 import { useEffect, useState } from "react";
-import { loadManifest } from "../mf/manifest";
 import { getKeycloak } from "../keycloak/keycloak";
 import UserMenu from "../components/UserMenu";
 import RouteManager from "../components/Route/RouteManager";
@@ -21,7 +20,6 @@ export default function MainLayout() {
   const keycloak = getKeycloak();
 
   const [collapsed, setCollapsed] = useState(true);
-  const [manifest, setManifest] = useState<any>(null);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
   const loadMenu = async () => {
@@ -30,16 +28,15 @@ export default function MainLayout() {
 
       setMenuItems(toMenuItems(res.data));
     } catch (err) {
-      message.error("Load menu failed", err);
+      console.error("Load menu failed", err);
+      message.error("Load menu failed");
     }
   };
 
   useEffect(() => {
     loadMenu();
-    loadManifest().then(setManifest);
   }, []);
 
-  if (!manifest) return <>Loading...</>;
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -53,26 +50,6 @@ export default function MainLayout() {
           height: 50,
         }}
       >
-        {/* LEFT */}
-        {/* <div style={{ display: "flex", alignItems: "center" }}>
-          <Dropdown
-            menu={{
-              items: manifest.modules.map((m: any) => ({
-                key: m.route,
-                label: <Link to={m.route}>{m.displayName}</Link>,
-              })),
-            }}
-            placement="bottomLeft"
-            trigger={["click"]}
-          >
-            <Button
-              type="text"
-              icon={<AppstoreOutlined />}
-              style={{ color: "#fff" }}
-            />
-          </Dropdown>
-        </div> */}
-
         {/* RIGHT */}
         <UserMenu keycloak={keycloak} />
       </Header>

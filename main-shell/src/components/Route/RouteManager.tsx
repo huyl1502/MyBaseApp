@@ -4,13 +4,12 @@ import { Routes, Route } from "react-router-dom";
 
 import AuthWrapper from "../AuthWrapper";
 import { routes } from "./RouteConfig";
+import DynamicRemoteScreen from "../../layout/screens/DynamicRemoteScreen";
 
 export default function RouteManager() {
   return (
     <Routes>
       {routes.map((route) => {
-        const Component = route.element;
-
         return (
           <Route
             key={route.path}
@@ -18,10 +17,10 @@ export default function RouteManager() {
             element={
               route.auth ? (
                 <AuthWrapper>
-                  <Component />
+                  <DynamicRemoteScreen moduleName={route.moduleName} expose={route.expose} />
                 </AuthWrapper>
               ) : (
-                <Component />
+                <DynamicRemoteScreen moduleName={route.moduleName} expose={route.expose} />
               )
             }
           />
