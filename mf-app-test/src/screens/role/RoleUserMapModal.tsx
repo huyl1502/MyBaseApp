@@ -36,8 +36,9 @@ export default function RoleUserMapModal({
             roleApi.getUserIdsByRoleId(role.RoleId),
           ]);
           setUsers(allUsers);
-          setTargetKeys(mappedUserIds || []);
-          setInitialTargetKeys(mappedUserIds || []);
+          const mappedIds = (mappedUserIds || []).map(String);
+          setTargetKeys(mappedIds);
+          setInitialTargetKeys(mappedIds);
         } catch (error) {
           console.error(error);
           message.error("Không thể tải danh sách người dùng");
@@ -79,8 +80,8 @@ export default function RoleUserMapModal({
   };
 
   const transferDataSource = users.map((u) => ({
-    key: u.id,
-    title: u.name || u.id,
+    key: u.userId,
+    title: u.userName || u.userId,
     description: u.age ? `${u.age} tuổi` : "",
   }));
 
