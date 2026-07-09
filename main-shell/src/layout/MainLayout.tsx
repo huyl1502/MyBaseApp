@@ -22,18 +22,18 @@ export default function MainLayout() {
   const [collapsed, setCollapsed] = useState(true);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([]);
 
-  const loadMenu = async () => {
-    try {
-      const res = await getMenus();
-
-      setMenuItems(toMenuItems(res.data));
-    } catch (err) {
-      console.error("Load menu failed", err);
-      message.error("Load menu failed");
-    }
-  };
-
   useEffect(() => {
+    const loadMenu = async () => {
+      try {
+        const res = await getMenus();
+
+        setMenuItems(toMenuItems(res.data));
+      } catch (err) {
+        console.error("Load menu failed", err);
+        message.error("Load menu failed");
+      }
+    };
+
     loadMenu();
   }, []);
 
