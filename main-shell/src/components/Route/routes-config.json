@@ -28,5 +28,11 @@
     "auth": false,
     "moduleName": "config",
     "expose": "./Right"
+  },
+  {
+    "path": "/User",
+    "auth": false,
+    "moduleName": "config",
+    "expose": "./User"
   }
 ]

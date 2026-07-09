@@ -23,6 +23,7 @@ export default defineConfig({
         "./Function": "./src/screens/function/Function.tsx",
         "./Role": "./src/screens/role/Role.tsx",
         "./Right": "./src/screens/right/Right.tsx",
+        "./User": "./src/screens/user/User.tsx",
       },
       shared: {
         react: {},
