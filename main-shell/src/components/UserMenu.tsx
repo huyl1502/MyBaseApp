@@ -1,9 +1,10 @@
 import React from 'react';
 import { Dropdown, Space, Avatar, type MenuProps } from 'antd';
 import { DownOutlined, UserOutlined, LockOutlined, LogoutOutlined } from '@ant-design/icons';
+import Keycloak from 'keycloak-js';
 
 type UserMenuProps = {
-  keycloak: any;
+  keycloak: Keycloak;
 };
 
 const UserMenu: React.FC<UserMenuProps> = ({ keycloak }) => {

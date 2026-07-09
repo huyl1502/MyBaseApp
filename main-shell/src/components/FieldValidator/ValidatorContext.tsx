@@ -30,6 +30,7 @@ export interface ValidatorContextType {
     ) => Promise<boolean>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const ValidatorContext =
     createContext<ValidatorContextType>({
         register: () => { },

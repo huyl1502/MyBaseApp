@@ -20,7 +20,7 @@ export async function loadRemoteEntry(remoteName: string, url: string) {
   ]);
 }
 
-export async function loadRemoteModule(remoteName: string, expose: string): Promise<any> {
+export async function loadRemoteModule<T = unknown>(remoteName: string, expose: string): Promise<T> {
   const moduleName = expose.startsWith('./') ? expose.slice(2) : expose;
   const remotePath = `${remoteName}/${moduleName}`;
 
@@ -31,5 +31,5 @@ export async function loadRemoteModule(remoteName: string, expose: string): Prom
   }
 
   // `loadRemote` returns the module directly, not a factory function
-  return remote;
+  return remote as T;
 }

@@ -1,6 +1,7 @@
 import React, {
   type ReactElement,
   type CSSProperties,
+  useCallback,
   useContext,
   useEffect,
   useImperativeHandle,
@@ -17,13 +18,13 @@ export interface ValidationRule {
   message?: string;
 
   validator?: (
-    value: any
+    value: unknown
   ) => Promise<string | null | undefined> | string | null | undefined;
 }
 
 const validateValue = async (
   t: (text?: string) => string,
-  value: any,
+  value: unknown,
   rules: ValidationRule[] = []
 ): Promise<string | null> => {
   for (const rule of rules) {
@@ -51,7 +52,7 @@ const validateValue = async (
 };
 
 interface ChildProps {
-  value?: any;
+  value?: unknown;
   status?: string;
 }
 
@@ -68,7 +69,7 @@ interface FieldValidatorProps {
 
   useLabel?: boolean;
 
-  checkValue?: any;
+  checkValue?: unknown;
 
   styleLabel?: CSSProperties;
 }
@@ -101,15 +102,7 @@ const FieldValidator = ({
     (rule) => rule.required
   );
 
-  useEffect(() => {
-    if (didMount.current) {
-      validate();
-    } else {
-      didMount.current = true;
-    }
-  }, [value]);
-
-  const validate = async () => {
+  const validate = useCallback(async () => {
     const err = await validateValue(
       t,
       value,
@@ -119,21 +112,29 @@ const FieldValidator = ({
     setError(err);
 
     return !err;
-  };
+  }, [t, value, rules]);
+
+  useEffect(() => {
+    if (didMount.current) {
+      validate();
+    } else {
+      didMount.current = true;
+    }
+  }, [value, validate]);
 
   useImperativeHandle(
     ref,
     () => ({
       validate,
     }),
-    [value, rules]
+    [validate]
   );
 
   useEffect(() => {
     register(ref, group);
 
     return () => unregister(ref);
-  }, [group]);
+  }, [group, register, unregister]);
 
   const childWithStatus =
     React.cloneElement(children, {
