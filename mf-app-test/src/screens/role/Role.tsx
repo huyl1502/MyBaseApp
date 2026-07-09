@@ -5,6 +5,7 @@ import { roleApi } from "../../api/roleApi";
 import type { RoleModel } from "../../models/role";
 import RoleList from "./RoleList";
 import RoleFormModal, { type ModalMode } from "./RoleFormModal";
+import RoleUserMapModal from "./RoleUserMapModal";
 
 const { Title, Text } = Typography;
 
@@ -16,6 +17,9 @@ export default function Role() {
   const [modalMode, setModalMode] = useState<ModalMode>(null);
   const [editingRecord, setEditingRecord] = useState<RoleModel | null>(null);
   const [submitting, setSubmitting] = useState(false);
+
+  const [mappingRole, setMappingRole] = useState<RoleModel | null>(null);
+  const [isMapModalOpen, setIsMapModalOpen] = useState(false);
 
   const fetchAll = async () => {
     setLoading(true);
@@ -30,7 +34,11 @@ export default function Role() {
   };
 
   useEffect(() => {
-    fetchAll();
+    const init = async () => {
+      await Promise.resolve();
+      fetchAll();
+    };
+    init();
   }, []);
 
   const handleOpenAdd = () => {
@@ -118,6 +126,10 @@ export default function Role() {
         onRefresh={fetchAll}
         onEdit={handleOpenEdit}
         onDelete={handleDelete}
+        onMapUser={(record) => {
+          setMappingRole(record);
+          setIsMapModalOpen(true);
+        }}
       />
 
       <RoleFormModal
@@ -126,6 +138,20 @@ export default function Role() {
         submitting={submitting}
         onSubmit={handleSubmit}
         onCancel={handleCloseModal}
+      />
+
+      <RoleUserMapModal
+        visible={isMapModalOpen}
+        role={mappingRole}
+        onCancel={() => {
+          setIsMapModalOpen(false);
+          setMappingRole(null);
+        }}
+        onSuccess={() => {
+          setIsMapModalOpen(false);
+          setMappingRole(null);
+          fetchAll();
+        }}
       />
     </div>
   );

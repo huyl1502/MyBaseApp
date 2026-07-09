@@ -13,6 +13,7 @@ import {
   EditOutlined,
   DeleteOutlined,
   ReloadOutlined,
+  UsergroupAddOutlined,
 } from "@ant-design/icons";
 import AsyncButton from "../../components/AsyncButton";
 import type { RoleModel } from "../../models/role";
@@ -27,6 +28,7 @@ interface RoleListProps {
   onRefresh: () => Promise<void> | void;
   onEdit: (record: RoleModel) => void;
   onDelete: (record: RoleModel) => void;
+  onMapUser: (record: RoleModel) => void;
 }
 
 export default function RoleList({
@@ -37,6 +39,7 @@ export default function RoleList({
   onRefresh,
   onEdit,
   onDelete,
+  onMapUser,
 }: RoleListProps) {
   const columns: TableColumnsType<RoleModel> = [
     {
@@ -82,11 +85,21 @@ export default function RoleList({
     {
       title: "Thao tác",
       key: "actions",
-      width: 180,
+      width: 250,
       align: "center",
       fixed: "right",
       render: (_, record) => (
         <Space size={6}>
+          <Button
+            id={`btn-map-${record.RoleId}`}
+            type="primary"
+            style={{ backgroundColor: "#4f46e5", borderColor: "#4f46e5" }}
+            size="small"
+            icon={<UsergroupAddOutlined />}
+            onClick={() => onMapUser(record)}
+          >
+            Gán User
+          </Button>
           <Button
             id={`btn-edit-${record.RoleId}`}
             type="primary"

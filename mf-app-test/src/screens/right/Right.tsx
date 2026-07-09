@@ -47,13 +47,13 @@ export default function Right() {
       const functionsRes = setupRes.listFunctions || [];
 
       // Only display active roles/features/functions if they have Enabled property
-      setRoles(rolesRes.filter((r) => r.Enabled !== false));
-      setFeatures(featuresRes.filter((f) => f.Enabled !== false));
-      setFunctions(functionsRes.filter((fn) => fn.Enabled !== false));
+      setRoles(rolesRes.filter((r: RoleModel) => r.Enabled !== false));
+      setFeatures(featuresRes.filter((f: FeatureModel) => f.Enabled !== false));
+      setFunctions(functionsRes.filter((fn: FunctionModel) => fn.Enabled !== false));
       setRights(rightsRes);
 
       // Default to first role if none selected yet
-      const activeRoles = rolesRes.filter((r) => r.Enabled !== false);
+      const activeRoles = rolesRes.filter((r: RoleModel) => r.Enabled !== false);
       if (activeRoles.length > 0 && !selectedRoleId) {
         setSelectedRoleId(activeRoles[0].RoleId);
       }
@@ -76,7 +76,12 @@ export default function Right() {
   };
 
   useEffect(() => {
-    fetchData();
+    const init = async () => {
+      await Promise.resolve();
+      fetchData();
+    };
+    init();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleCheckboxChange = async (
@@ -168,7 +173,7 @@ export default function Right() {
       key: fn.FunctionId,
       width: 130,
       align: "center" as const,
-      render: (_: any, featureRecord: FeatureModel) => {
+      render: (_: unknown, featureRecord: FeatureModel) => {
         // Find existing right mapping for selected Role, current Feature and Function
         const right = rights.find(
           (r) =>

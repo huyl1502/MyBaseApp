@@ -30,7 +30,11 @@ export default function Menu() {
   };
 
   useEffect(() => {
-    fetchAll();
+    const init = async () => {
+      await Promise.resolve();
+      fetchAll();
+    };
+    init();
   }, []);
 
   // ── Handlers ────────────────────────────────────────────

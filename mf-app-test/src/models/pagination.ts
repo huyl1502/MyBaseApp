@@ -1,4 +1,4 @@
-export interface PagedRequest<T = any> {
+export interface PagedRequest<T = unknown> {
   pageIndex: number;
   pageSize: number;
   filter?: T;

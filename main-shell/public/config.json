@@ -2,7 +2,7 @@
   "apiUrl": "http://localhost:5000",
   "timeout": 30000,
   "keycloak": {
-    "url": "http://172.29.97.248:9000",
+    "url": "http://100.75.184.101:9000",
     "realm": "test-realm",
     "clientId": "test-app"
   }

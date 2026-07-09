@@ -30,7 +30,11 @@ export default function Function() {
   };
 
   useEffect(() => {
-    fetchAll();
+    const init = async () => {
+      await Promise.resolve();
+      fetchAll();
+    };
+    init();
   }, []);
 
   const handleOpenAdd = () => {

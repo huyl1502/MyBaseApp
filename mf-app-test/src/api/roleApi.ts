@@ -28,4 +28,23 @@ export const roleApi = {
     axiosClient
       .delete<boolean>(`${BASE}/DeleteRole/${roleId}`)
       .then((r) => r.data),
+
+  mapUserToRole: (userId: string, roleId: string) =>
+    axiosClient
+      .post<boolean>(`${BASE}/MapUserToRole`, null, {
+        params: { userId, roleId },
+      })
+      .then((r) => r.data),
+
+  removeUserFromRole: (userId: string, roleId: string) =>
+    axiosClient
+      .post<boolean>(`${BASE}/RemoveUserFromRole`, null, {
+        params: { userId, roleId },
+      })
+      .then((r) => r.data),
+
+  getUserIdsByRoleId: (roleId: string) =>
+    axiosClient
+      .get<string[]>(`${BASE}/GetUserIdsByRoleId/${roleId}`)
+      .then((r) => r.data),
 };
